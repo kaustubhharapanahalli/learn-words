@@ -1,0 +1,5 @@
+-r base.txt
+pylint==2.8.2
+pylint-django==2.4.4
+pylint-plugin-utils==0.6
+black==21.5b1
