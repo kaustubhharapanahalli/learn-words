@@ -3,3 +3,7 @@ pylint==2.8.2
 pylint-django==2.4.4
 pylint-plugin-utils==0.6
 black==21.5b1
+isort==5.8.0
+pydocstyle==6.0.0
+pre-commit==2.12.1
+mypy==0.812
