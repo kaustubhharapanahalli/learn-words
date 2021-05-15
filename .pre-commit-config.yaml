@@ -7,12 +7,14 @@ repos:
         language: system
         require_serial: true
         types: [python]
+        exclude: ^migrations/
 
       - id: pydocstyle
         name: pydocstyle
         entry: pydocstyle
         language: system
         types: [python]
+        exclude: ^migrations/
 
       - id: pylint
         name: pylint
@@ -20,6 +22,7 @@ repos:
         language: system
         pass_filenames: false
         always_run: true
+        exclude: ^migrations/
 
       - id: mypy
         name: mypy
@@ -27,6 +30,7 @@ repos:
         language: system
         require_serial: true
         types: [python]
+        exclude: ^migrations/
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v2.2.3
