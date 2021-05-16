@@ -5,10 +5,11 @@ from typing import Any, List, Union
 
 from django.http import HttpResponseBadRequest
 from django.utils.datastructures import MultiValueDict, MultiValueDictKeyError
-from errors.file_format_error import FileFormatError
 from rest_framework.decorators import api_view
 from rest_framework.request import Request
 from rest_framework.response import Response
+
+from errors.file_format_error import FileFormatError
 from words.models import WordsDictionary
 
 
