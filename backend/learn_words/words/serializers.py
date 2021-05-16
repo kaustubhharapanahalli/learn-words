@@ -1,7 +1,6 @@
 """Serializers for values stored in database tables related to words app."""
 from rest_framework import serializers
-
-from words.models import WordsDictionary
+from .models import WordsDictionary
 
 
 class WordsDictionarySerializer(serializers.ModelSerializer):
