@@ -27,5 +27,5 @@ jobs:
 
     - name: Run Tests
       run: |
-        cd backend/learn_words/
-        pytest .
+        cd
+        pytest backend/learn_words/.
