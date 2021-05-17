@@ -27,5 +27,6 @@ jobs:
       - name: Run Tests
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pytest backend/learn_words/.
+          pip install -r backend/requirements/all.txt
+          cd backend/learn_words/
+          pytest .
