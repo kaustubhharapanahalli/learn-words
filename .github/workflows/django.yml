@@ -29,4 +29,4 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r backend/requirements/all.txt
           cd backend/learn_words/
-          pytest .
+          python -m pytest .
