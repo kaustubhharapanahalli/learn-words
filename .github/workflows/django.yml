@@ -23,8 +23,9 @@ jobs:
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r backend/requirements/all.txt
-
-#     - name: Run Tests
-#       run: |
-#         python manage.py test
+          pip install -r backend/requirements/development.txt
+      - name: Run Tests
+        run: |
+          pip install -r backend/requirements/test.txt
+          cd backend/learn_words/
+          python -m pytest .
