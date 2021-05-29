@@ -4,17 +4,16 @@ import json
 import logging
 
 from django.utils.datastructures import MultiValueDict, MultiValueDictKeyError
+from django.http import HttpResponseBadRequest
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
-from django.http import HttpResponseBadRequest
 from errors.file_format_error import FileFormatError
 from words.models import WordsDictionary
 
 
 @api_view(["POST"])
-# @permission_classes(["IsAdminUser"])
 def post_words(request: Request) -> Union[Response, HttpResponseBadRequest]:
     """
     post_words: Function to save words metadata to database.
@@ -68,7 +67,9 @@ def post_words(request: Request) -> Union[Response, HttpResponseBadRequest]:
                         group=group,
                         word=word,
                         definition=word_dict[group][word]["definition"],
-                        example_sentences=word_dict[group][word]["example_sentences"],
+                        example_sentences=word_dict[group][word][
+                            "example_sentences"
+                        ],
                         gre_synonyms=word_dict[group][word]["gre_synonyms"],
                         synonyms=word_dict[group][word]["synonyms"],
                         antonyms=word_dict[group][word]["antonyms"],
