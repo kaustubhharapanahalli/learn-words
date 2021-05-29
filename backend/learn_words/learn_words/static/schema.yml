@@ -1,0 +1,27 @@
+openapi: 3.0.2
+info:
+  title: "Learn Words API"
+  version: "0.1"
+  description: "List of APIs that are defined for the Learn Words application"
+paths:
+  /api/words/add_words/:
+    post:
+      operationId: createpost_words
+      description: "Add multiple words to the database."
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        "201":
+          content:
+            application/json:
+              schema: {}
+          description: ""
+      tags:
+        - api
