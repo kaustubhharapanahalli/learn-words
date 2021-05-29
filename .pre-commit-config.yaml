@@ -8,6 +8,7 @@ repos:
         require_serial: true
         types: [python]
         exclude: ^migrations/
+        args: [--line-length=79]
 
       - id: pydocstyle
         name: pydocstyle
