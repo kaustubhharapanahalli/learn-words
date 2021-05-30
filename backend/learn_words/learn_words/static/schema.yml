@@ -1,13 +1,45 @@
 openapi: 3.0.2
 info:
-  title: "Learn Words API"
-  version: "0.1"
-  description: "List of APIs that are defined for the Learn Words application"
+  title: 'Learn Words API'
+  version: '0.1'
+  description: 'APIs defined for communicating to the backend features of the Learn Words application.'
 paths:
+  /api/words/:
+    get:
+      operationId: listWordsDictionaryAPIs
+      description: "Get meaning of all words for the requested words group.\n\nParameters\n\
+        ----------\nrequest : Request\n    Request body received from the frontend.\n\
+        \nReturns\n-------\nUnion[Response, HttpResponseBadRequest]\n    Dictionary\
+        \ of serialized words belonging to a group. If the group\n    is not found\
+        \ in the database returns HttpResponseBadRequest."
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items: {}
+          description: ''
+      tags:
+      - api
   /api/words/add_words/:
     post:
       operationId: createpost_words
-      description: "Add multiple words to the database."
+      description: "post_words: Function to save words metadata to database.\n\n
+    Save metadata of words to database. This function allows users to send a
+    POST request only when the user accessing the API is an Administrator.
+    \n\nParameters\n----------\nrequest : Request\n    Request body received from the
+    frontend.\n\n
+    Returns\n-------\n
+    Union[Response, HttpResponseBadRequest]:
+        Custom message saying words have been saved to database. If there is
+        any error, HttpResponseBadRequest is raised.
+    \n\nRaises\n------\n
+    MultiValueDictKeyError:\n
+        Raised when no file data is provided in the POST call.\n\n
+    FileFormatError:\n
+        When the format of the file is not JSON, this error is raised."
       parameters: []
       requestBody:
         content:
@@ -18,10 +50,10 @@ paths:
           multipart/form-data:
             schema: {}
       responses:
-        "201":
+        '201':
           content:
             application/json:
               schema: {}
-          description: ""
+          description: ''
       tags:
-        - api
+      - api
