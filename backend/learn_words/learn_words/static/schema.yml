@@ -57,3 +57,24 @@ paths:
           description: ''
       tags:
       - api
+  /api/words/get_groups/:
+    get:
+      operationId: listget_groups
+      description: "get_groups: Get all the word groups that are available in the database.
+    \n\nParameters\n----------\n
+    \nrequest : Request\n
+    \nRequest body received from the frontend.
+    \n\nReturns\n-------\n
+    Response\n\n
+        Dictionary containing a list of group names sorted alphabetically."
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items: {}
+          description: ''
+      tags:
+      - api
