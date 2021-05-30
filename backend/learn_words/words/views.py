@@ -8,9 +8,11 @@ from django.http import HttpResponseBadRequest
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework.views import APIView
 
 from errors.file_format_error import FileFormatError
 from words.models import WordsDictionary
+from words.serializers import WordsDictionarySerializer
 
 
 @api_view(["POST"])
@@ -85,3 +87,59 @@ def post_words(request: Request) -> Union[Response, HttpResponseBadRequest]:
 
     except MultiValueDictKeyError as err:
         return HttpResponseBadRequest(err, status=406)
+
+
+@api_view(["GET"])
+def get_groups(request: Request) -> Response:
+    """
+    get_groups: Get all the word groups that are available in the database.
+
+    Parameters
+    ----------
+    request : Request
+        Request body received from the frontend.
+
+    Returns
+    -------
+    Response
+        Dictionary containing a list of group names sorted alphabetically.
+    """
+    groups_list: Any = (
+        WordsDictionary.objects.order_by()
+        .values_list("group", flat=True)
+        .distinct()
+    )
+    groups_list = [group_name for group_name in groups_list]
+    groups_list.sort(key=lambda x: int(x.split(" ")[-1]))
+    return Response({"groups": groups_list})
+
+
+class WordsDictionaryAPI(APIView):
+    """WordsDictionaryAPI: API to communicate with WordsDictionary database."""
+
+    def get(self, request: Request) -> Union[Response, HttpResponseBadRequest]:
+        """
+        Get meaning of all words for the requested words group.
+
+        Parameters
+        ----------
+        request : Request
+            Request body received from the frontend.
+
+        Returns
+        -------
+        Union[Response, HttpResponseBadRequest]
+            Dictionary of serialized words belonging to a group. If the group
+            is not found in the database returns HttpResponseBadRequest.
+        """
+        group_dict: Any = request.data
+        group = group_dict["group"]
+        words = WordsDictionary.objects.filter(group=group)
+        print(words)
+        words_serialized: WordsDictionarySerializer
+        if words.exists():
+            words_serialized = WordsDictionarySerializer(words, many=True)
+        else:
+            return HttpResponseBadRequest("Word group not found.", status=406)
+
+        return Response(words_serialized.data)

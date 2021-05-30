@@ -84,4 +84,30 @@ class WordsDictionaryTest(TestCase):
             antonyms=ANTONYMS,
         )
         self.assertTrue(isinstance(test_object, WordsDictionary))
+
+    def test_name_output(self):
+        """test_name_output: Test output name."""
+        test_object = self.create_word_dictionary(
+            group=GROUP,
+            word=WORD,
+            definition=DEFINITIONS,
+            example_sentences=EXAMPLE_SENTENCES,
+            gre_synonyms=GRE_SYNONYMS,
+            synonyms=SYNONYMS,
+            antonyms=ANTONYMS,
+        )
         self.assertTrue(test_object.__str__, WORD)
+
+    def test_word_dictionary_deletion(self):
+        """test_word_dictionary_deletion: Test deletion of row element."""
+        test_object = self.create_word_dictionary(
+            group=GROUP,
+            word=WORD,
+            definition=DEFINITIONS,
+            example_sentences=EXAMPLE_SENTENCES,
+            gre_synonyms=GRE_SYNONYMS,
+            synonyms=SYNONYMS,
+            antonyms=ANTONYMS,
+        )
+        WordsDictionary.objects.filter(pk=test_object.pk).delete()
+        self.assertFalse(test_object in WordsDictionary.objects.all())
