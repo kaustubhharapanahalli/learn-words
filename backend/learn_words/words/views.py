@@ -89,6 +89,31 @@ def post_words(request: Request) -> Union[Response, HttpResponseBadRequest]:
         return HttpResponseBadRequest(err, status=406)
 
 
+@api_view(["GET"])
+def get_groups(request: Request) -> Response:
+    """
+    get_groups: Get all the word groups that are available in the database.
+
+    Parameters
+    ----------
+    request : Request
+        Request body received from the frontend.
+
+    Returns
+    -------
+    Response
+        Dictionary containing a list of group names sorted alphabetically.
+    """
+    groups_list: Any = (
+        WordsDictionary.objects.order_by()
+        .values_list("group", flat=True)
+        .distinct()
+    )
+    groups_list = [group_name for group_name in groups_list]
+    groups_list.sort(key=lambda x: int(x.split(" ")[-1]))
+    return Response({"groups": groups_list})
+
+
 class WordsDictionaryAPI(APIView):
     """WordsDictionaryAPI: API to communicate with WordsDictionary database."""
 
